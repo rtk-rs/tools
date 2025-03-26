@@ -23,12 +23,15 @@ def flatten_json(data: Any, parent_key: str = "", level: int = 0) -> List[List[s
         rows.append([parent_key, str(data)])
     return rows
 
-def json_to_markdown(json_data: Any) -> str:
+def json_to_markdown(json_data: Any, nested: bool = False) -> str:
     rows = flatten_json(json_data)
     markdown_table = "| Field | Value |\n| --- | --- |\n"
     for key, value in rows:
         markdown_table += f"| {key} | {value} |\n"
-    
+   
+    if nested:
+        return markdown_table.strip()
+
     return markdown_table
 
 if __name__ == "__main__":
