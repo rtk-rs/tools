@@ -8,8 +8,8 @@ def flatten_json(data: Any, parent_key: str = "", level: int = 0) -> List[List[s
         for key, value in data.items():
             new_key = f"{parent_key}.{key}" if parent_key else key
             if isinstance(value, dict) and level < 2:
-                rows.append([new_key, ""])  # Ajoute un titre de section
-                rows.extend(flatten_json(value, new_key, level + 1))
+                sub_table = json_to_markdown(value, nested=True)
+                rows.append([new_key, f"\n{sub_table}"])
             elif isinstance(value, list) and level < 2:
                 rows.append([new_key, ""])  # Ajoute un titre de section
                 for i, item in enumerate(value):
